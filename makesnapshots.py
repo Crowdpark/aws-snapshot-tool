@@ -98,7 +98,7 @@ for region in regions:
         print "Looking for volumes in region "+region.name
         vols = conn.get_all_volumes(filters={config['tag_name']: config['tag_value']})
         for vol in vols:
-            print 'Backing up volume ' + vol + '\n';
+            print 'Backing up volume ' + vol.id + '\n';
             try:
                 count_total += 1
                 logging.info(vol)
@@ -159,7 +159,7 @@ for region in regions:
                 count_errors +=1
             else:
                 count_succes +=1
-    except:
+    except Exception, e:
         print "Failed to retrieve volumes from region " + region.name
 
 result= '\nFinished making snapshots at ' + datetime.today().strftime('%d-%m-%Y %H:%M:%S') + ' with ' + str(count_succes) + ' snapshots of ' + str(count_total) + ' possible.'
